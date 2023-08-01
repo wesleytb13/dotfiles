@@ -1,0 +1,54 @@
+#Changing prefix to ctrl-s and other keybinds
+unbind C-b
+set -g prefix C-a
+unbind %
+bind | split-window -h
+unbind '"'
+bind - split-window -v
+bind-key c command-prompt -p "window name:" "new-window; rename-window '%%'"
+unbind r
+bind r source ~/.tmux.conf
+
+#Special Keybinds - these allow hjkl to reszie panes
+bind -n M-h resize-pane -L 2
+bind -n M-l resize-pane -R 2
+bind -n M-k resize-pane -U 2
+bind -n M-j resize-pane -D 2
+
+#Other useful settings
+set -sg escape-time 1
+set -g mouse on
+set -g clock-mode-style 12
+set -g clock-mode-colour purple
+
+#Settings for the sidebar plugin
+set -g @sidebar-tree-command 'tree -C'
+set -g @sidebar-tree-width '60'
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-sidebar'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+
+#Configure Pane borders
+set -g pane-border-lines heavy
+set -g pane-border-style fg=white
+set -g pane-active-border-style fg=color005
+
+#Configure status line
+set -g status-style 'bg=color237 fg=color15 dim'
+set -g status-left '#[bg=color13,fg=color0,dim]session:#S > '
+set -g status-left-length 20
+set -g status-right-length 50
+set -g status-right '#[bg=color13,fg=color0,dim] CPU: #{cpu_percentage} > RAM: #{ram_percentage} > %a %B %d %Y %I:%M %p '
+
+setw -g window-status-current-style 'bg=color13 fg=color0 dim'
+setw -g window-status-separator '>'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+
+#run '~/.tmux/plugins/tmux-sidebar/sidebar.tmx'
+
